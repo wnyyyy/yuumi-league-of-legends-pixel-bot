@@ -1,4 +1,5 @@
 import psutil
+from helpers.keyboard import keyboard_helper as keyboard
 
 # classe da engine
 class PixelBot:
@@ -14,9 +15,14 @@ class PixelBot:
             except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                 pass
         return False
+
+    # aperta y para trancar câmera
+    def __lock_camera():
+        keyboard.press_ingame('y')
         
     # primeira ação do bot ao entrar na partida
     def game_init(self):
+        self.__lock_camera()
         self.yuumi.buy_items()
     
     # loop que faz o bot agir enquanto o jogo estiver aberto
