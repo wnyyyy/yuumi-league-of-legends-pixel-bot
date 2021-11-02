@@ -15,7 +15,7 @@ logging.info("Starting game...")
 # pixelBot.play_game()
 
 mouse_helper = MouseHelper(x_pad, y_pad)
-# loga coordenadas do cursor para debug
+# registra coordenadas do cursor para debug
 while True:
     mouse_helper.get_coords()
     time.sleep(0.5)
