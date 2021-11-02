@@ -1,4 +1,3 @@
-import os
 import time
 import logging
 import win32api, win32con
