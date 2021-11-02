@@ -6,7 +6,7 @@ width = 1281
 height = 721
 x_pad = 319
 y_pad = 154
-
+debug = True
 
 logging.info("Starting game...")
 # yuumi = Yuumi()
@@ -16,6 +16,7 @@ logging.info("Starting game...")
 
 mouse_helper = MouseHelper(x_pad, y_pad)
 # registra coordenadas do cursor para debug
-while True:
-    mouse_helper.get_coords()
-    time.sleep(0.5)
+if (debug):
+    while True:
+        mouse_helper.get_coords()
+        time.sleep(1)

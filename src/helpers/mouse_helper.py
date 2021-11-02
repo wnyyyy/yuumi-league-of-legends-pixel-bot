@@ -1,5 +1,4 @@
 import time
-import logging
 import win32api, win32con
 
 class MouseHelper:
@@ -34,4 +33,4 @@ class MouseHelper:
         x, y = win32api.GetCursorPos()
         x = x - self.x_pad
         y = y - self.y_pad
-        logging.info('x: {} y: {}'.format(x, y))
+        print('x: {} y: {}'.format(x, y))
