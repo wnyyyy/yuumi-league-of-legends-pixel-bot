@@ -16,5 +16,5 @@ class Yuumi:
         # upa skills prioridade para upar skills é R > E > W > Q
         self.__level_up('rewq')
 
-        # timer para manter um tempo mínimo entre as ações
+        # timer para adicionar tempo mínimo entre as ações
         time.sleep(.5)
