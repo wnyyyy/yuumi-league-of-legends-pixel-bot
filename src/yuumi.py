@@ -1,5 +1,7 @@
 import time
+import logging
 from coordinates import *
+from enums import Hashes
 from helpers.image_processing import ImageProcessing
 from helpers.keyboard import keyboard_helper as keyboard
 
@@ -12,12 +14,14 @@ class Yuumi:
 
     def __current_w_status(self):
         hash = self.img_p.get_box_hash(CH_W_UL[0], CH_W_UL[1], CH_W_LR[0], CH_W_LR[1])
-        if (hash == 9953):
-            print('w status: attached')
-        if (hash == 9378):
-            print('w status: skill up')
-        if (hash == 2345):
-            print('w status: casting')
+        if (hash == Hashes.SKILL_W_IS_ATTACHED):
+            logging.info('w status: attached')
+        elif (hash == Hashes.SKILL_W_IS_UP):
+            logging.info('w status: skill up')
+        elif (hash == Hashes.SKILL_W_IS_CASTING):
+            logging.info('w status: casting')
+        else:
+            logging.info('w status: cooldown')
     
     # itera pela string de prioridade e pressiona ctrl + tecla para cada skill, em ordem de prioridade
     def __level_up(priority: str):        
