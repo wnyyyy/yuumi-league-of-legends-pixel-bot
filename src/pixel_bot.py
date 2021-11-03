@@ -38,6 +38,7 @@ class PixelBot:
         
     # primeira ação do bot ao entrar na partida
     def game_init(self):
+        self.__set_window_active
         self.__lock_camera()
         self.yuumi.buy_items()
     

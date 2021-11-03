@@ -1,6 +1,4 @@
 #### ingame ####
 # minimapa: 35, interface: 0
-# resoluçao: 1024x768, em janela
+# resoluçao: 1920x1080, sem moldura
 # acessibilidade: todos 50
-## loja
-FIRST_BUY = 12
