@@ -1,6 +1,6 @@
 #### ingame ####
-# minimapa: 35, interface: 0
-# resoluçao: 1920x1080, sem moldura
+# minimapa: 100, interface: 100
+# resoluçao: 1600x900, sem moldura
 # acessibilidade: todos 50
 
 # loja
@@ -14,5 +14,6 @@ TEAM_ALLY_3 = (1212, 498) # mid
 TEAM_ALLY_4 = (1260, 498) # adc
 
 # champion
-CH_W_UL = (575, 667)
-CH_W_LR = (584, 678)
+# 9953 - attached, 9378 - skill up, 2345 - casting
+CH_W_UL = (681, 809) 
+CH_W_LR = (691, 820)
