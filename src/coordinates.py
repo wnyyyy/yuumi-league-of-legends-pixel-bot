@@ -6,3 +6,5 @@
 # loja
 SHOP_FIRST_BUY = (300, 304)
 SHOP_TAB_RECOMENDADOS = (220, 113)
+
+# minimapa
