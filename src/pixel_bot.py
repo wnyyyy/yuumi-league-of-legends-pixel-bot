@@ -8,7 +8,7 @@ class PixelBot:
         self.yuumi = yuumi
 
     # foca janela do jogo
-    def __set_window_active():
+    def __set_window_active(self):
         window = win32gui.FindWindow(None, "League of Legends")
         win32gui.BringWindowToTop(window)
         win32gui.SetActiveWindow(window)
@@ -17,13 +17,13 @@ class PixelBot:
         win32gui.SetForegroundWindow(window)
 
     # retorna true se janela do jogo está ativa
-    def __is_window_active():
+    def __is_window_active(self):
         window = win32gui.FindWindow(None, "League of Legends")
         active_window = win32gui.GetActiveWindow()
         return window == active_window
 
     # checa se processo do jogo existe
-    def __is_ingame():
+    def __is_ingame(self):
         for proc in psutil.process_iter():
             try:
                 if 'League of Legends' in proc.name():
