@@ -9,11 +9,12 @@ width = 1921
 height = 1081
 debug = True
 
+logging.basicConfig(filename='pixelbot.log', encoding='utf-8', level=logging.DEBUG)
 logging.info("Starting game...")
 yuumi = Yuumi()
 pixel_bot = PixelBot(yuumi)
 # pixelBot.game_init()
-# pixelBot.play_game()
+pixel_bot.play_game()
 
 mouse_helper = MouseHelper()
 # registra coordenadas do cursor para debug
@@ -22,3 +23,4 @@ if (debug):
         time.sleep(1)
         mouse_helper.get_coords()
         time.sleep(1)
+
