@@ -1,10 +1,26 @@
 import psutil
+import win32gui, win32com.client
 from helpers.keyboard import keyboard_helper as keyboard
 
 # classe da engine
 class PixelBot:
     def __init__(self, yuumi):
         self.yuumi = yuumi
+
+    # foca janela do jogo
+    def __set_window_active():
+        window = win32gui.FindWindow(None, "League of Legends")
+        win32gui.BringWindowToTop(window)
+        win32gui.SetActiveWindow(window)
+        shell = win32com.client.Dispatch("WScript.Shell")
+        shell.SendKeys('%')
+        win32gui.SetForegroundWindow(window)
+
+    # retorna true se janela do jogo está ativa
+    def __is_window_active():
+        window = win32gui.FindWindow(None, "League of Legends")
+        active_window = win32gui.GetActiveWindow()
+        return window == active_window
 
     # checa se processo do jogo existe
     def __is_ingame():
@@ -28,4 +44,6 @@ class PixelBot:
     # loop que faz o bot agir enquanto o jogo estiver aberto
     def play_game(self):
         while self.__is_ingame():
-            self.yuumi.play()
+            if (self.__is_window_active):
+                self.yuumi.play()
+            
