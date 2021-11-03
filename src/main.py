@@ -2,10 +2,10 @@ import logging
 import time
 from helpers.mouse_helper import MouseHelper
 
-width = 1281
-height = 721
-x_pad = 319
-y_pad = 154
+width = 1921
+height = 1081
+x_pad = 0
+y_pad = 0
 debug = True
 
 logging.info("Starting game...")

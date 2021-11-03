@@ -1,10 +1,7 @@
 import time
-import win32api, win32con
+import win32api, win32con, win32gui
 
 class MouseHelper:
-    def __init__(self, x_pad, y_pad):
-        self.x_pad = x_pad
-        self.y_pad = y_pad
 
     def left_click(self):
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
@@ -17,7 +14,7 @@ class MouseHelper:
         win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, 0, 0)
 
     def move_mouse(self, coord):
-        win32api.SetCursorPos((self.x_pad + coord[0], self.y_pad + coord[1]))
+        win32api.SetCursorPos(coord[0], coord[1])
     
     def move_click_left_mouse(self, coord):
         self.move_mouse(coord)
@@ -30,7 +27,14 @@ class MouseHelper:
         self.right_click()
 
     def get_coords(self):
-        x, y = win32api.GetCursorPos()
-        x = x - self.x_pad
-        y = y - self.y_pad
-        print('x: {} y: {}'.format(x, y))
+        window = win32gui.GetForegroundWindow()
+        
+        try:
+            window_pos_x, window_pos_y, *etc = win32gui.GetWindowRect(window)
+
+        #pega posição do mouse dentro da janela ativa
+        finally:
+            mouse_x, mouse_y = win32gui.GetCursorPos()
+            x, y = (mouse_x - window_pos_x), (mouse_y - window_pos_y)
+
+            print('x: {} y: {}'.format(x, y))
