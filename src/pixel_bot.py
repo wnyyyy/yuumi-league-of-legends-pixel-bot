@@ -1,15 +1,18 @@
+import logging
 from time import sleep
 import time
 import psutil
 import keyboard as py_keyboard
+from coordinates import *
 import helpers.util as ut
-from enums import Buffers
+from enums import Buffers, Hashes
 from helpers.keyboard import keyboard_helper as keyboard
+from yuumi import Yuumi
 
 # classe da engine
 class PixelBot:
-    def __init__(self, yuumi):
-        self.yuumi = yuumi
+    def __init__(self):
+        self.yuumi = Yuumi(4)
         self.active = True
 
     # checa se processo do jogo existe
@@ -23,8 +26,22 @@ class PixelBot:
         return False
 
     # aperta y para trancar câmera
-    def __lock_camera():
+    def __lock_camera(self):
         keyboard.press_ingame('y')
+
+    def __get_playing_side(self):
+        try:
+            blue_side_check = self.yuumi.img_p.get_box_hash(MAP_BLUE_BASE_UL[0], MAP_BLUE_BASE_UL[1], MAP_BLUE_BASE_LR[0], MAP_BLUE_BASE_LR[1])
+            red_side_check = self.yuumi.img_p.get_box_hash(MAP_RED_BASE_UL[0], MAP_RED_BASE_UL[1], MAP_RED_BASE_LR[0], MAP_RED_BASE_LR[1])
+        except:
+            logging.warning('Falha ao calcular hash')
+            return False
+        if (blue_side_check == Hashes.BLUE_SIDE_BLUE_CHECK and red_side_check == Hashes.BLUE_SIDE_RED_CHECK):
+            print('on blue team')
+        elif (blue_side_check == Hashes.RED_SIDE_BLUE_CHECK and red_side_check == Hashes.RED_SIDE_RED_CHECK):
+            print('on red team')
+        print('blue = {}'.format(blue_side_check))
+        print('red = {}'.format(red_side_check))
 
     # freeza o bot
     def thread_freeze_bot(self):
@@ -39,7 +56,8 @@ class PixelBot:
     def game_init(self):
         ut.set_window_active()
         self.__lock_camera()
-        self.yuumi.buy_items()
+        self.__get_playing_side()
+        # self.yuumi.buy_items()
     
     # loop que faz o bot agir enquanto o jogo estiver aberto
     def play_game(self):

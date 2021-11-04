@@ -12,6 +12,7 @@ class Yuumi:
     def __init__(self, buddyId):
         self.attached = False
         self.buddyId = buddyId
+        self.playing_side = 'b'
         self.img_p = ImageProcessing(1600, 900)
 
     def __current_w_status(self):
