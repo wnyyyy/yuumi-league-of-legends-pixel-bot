@@ -6,7 +6,7 @@ def get_window_pos():
     try:
         window_pos_x, window_pos_y, *etc = win32gui.GetWindowRect(window)
     except:
-        raise
+        raise Exception
 
     return (window_pos_x, window_pos_y)
 

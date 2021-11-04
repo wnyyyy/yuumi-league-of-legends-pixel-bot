@@ -18,7 +18,7 @@ class ImageProcessing:
         try:
             window = ut.get_window_pos()
         except:
-            raise
+            raise Exception
         # print('window pos: {}'.format(window))
         bbox = (lux + window[0], luy + window[1], rlx + window[0], rly + window[1])
         im = ImageGrab.grab(bbox)        
@@ -35,6 +35,6 @@ class ImageProcessing:
             # im.save(os.getcwd() + '\\cut_' + str(a) + '_' + str(datetime.datetime.now()).replace(':','') + '.png', 'PNG')
             return a
         except:
-            raise
+            raise Exception
 
 

@@ -10,7 +10,7 @@ from helpers.keyboard import keyboard_helper as keyboard
 class PixelBot:
     def __init__(self, yuumi):
         self.yuumi = yuumi
-        self.active = False
+        self.active = True
 
     # checa se processo do jogo existe
     def __is_ingame(self):

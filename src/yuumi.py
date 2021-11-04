@@ -19,6 +19,7 @@ class Yuumi:
             hash = self.img_p.get_box_hash(CH_W_UL[0], CH_W_UL[1], CH_W_LR[0], CH_W_LR[1])
         except:
             logging.warning('Falha ao calcular hash')
+            return 0
         if (hash == Hashes.SKILL_W_IS_ATTACHED):
             logging.info('w status: attached')
             self.attached = True
@@ -45,8 +46,10 @@ class Yuumi:
         elif (self.buddyId == 3):
             coords = TEAM_ALLY_3
 
-
-        mouse.move_mouse(coords)
+        try:
+            mouse.move_mouse(coords)
+        except:
+            return
         time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
         keyboard.press_ingame('w')
         logging.info('attached to ally {}'.format(self.buddyId))
