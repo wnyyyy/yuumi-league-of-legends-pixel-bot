@@ -1,40 +1,36 @@
 import time
 import win32api, win32con, win32gui
+import helpers.util as ut
 
 class mouse_helper:
 
-    def left_click(self):
+    def left_click():
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
         time.sleep(.1)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0)
 
-    def right_click(self):
+    def right_click():
         win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN, 0, 0)
         time.sleep(.1)
         win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, 0, 0)
 
-    def move_mouse(self, coord):
-        win32api.SetCursorPos(coord)
-    
-    def move_click_left_mouse(self, coord):
-        self.move_mouse(coord)
-        time.sleep(.1)
-        self.left_click()
-        
-    def move_click_right_mouse(self, coord):
-        self.move_mouse(coord)
-        time.sleep(.1)
-        self.right_click()
-
-    def get_coords(self):
-        window = win32gui.GetForegroundWindow()
-        
+    def move_mouse(coord):
         try:
-            window_pos_x, window_pos_y, *etc = win32gui.GetWindowRect(window)
+            window_pos = ut.get_window_pos()
+        except:
+            return
 
-        #pega posição do mouse dentro da janela ativa
-        finally:
-            mouse_x, mouse_y = win32gui.GetCursorPos()
-            x, y = (mouse_x - window_pos_x), (mouse_y - window_pos_y)
+        coord = (coord[0] + window_pos[0], coord[1] + window_pos[1])
+        win32api.SetCursorPos(coord)
 
-            print('x: {} y: {}'.format(x, y))
+    # pega posição do mouse dentro da janela ativa
+    def get_coords():
+        try:
+            window_pos = ut.get_window_pos()
+        except:
+            return
+
+        mouse_x, mouse_y = win32gui.GetCursorPos()
+        x, y = (mouse_x - window_pos[0]), (mouse_y - window_pos[1])
+
+        print('x: {} y: {}'.format(x, y))
