@@ -1,7 +1,7 @@
 import time
 import win32api, win32con, win32gui
 
-class MouseHelper:
+class mouse_helper:
 
     def left_click(self):
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
@@ -14,7 +14,7 @@ class MouseHelper:
         win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, 0, 0)
 
     def move_mouse(self, coord):
-        win32api.SetCursorPos(coord[0], coord[1])
+        win32api.SetCursorPos(coord)
     
     def move_click_left_mouse(self, coord):
         self.move_mouse(coord)
