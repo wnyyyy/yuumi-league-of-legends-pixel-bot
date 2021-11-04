@@ -66,7 +66,7 @@ class Yuumi:
             self.attached == True
         elif (self.attached == False and w_status == 2):
             logging.info('all alone :( ... attaching...')
-            #self.__attach_to_buddy()
+            self.__attach_to_buddy()
         else:
             logging.info('oh noes.. RUNNN!!!!!')
             #self.__run_to_base()
