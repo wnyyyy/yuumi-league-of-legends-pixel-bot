@@ -18,7 +18,7 @@ class ImageProcessing:
         try:
             window = ut.get_window_pos()
         except:
-            return False
+            raise
         # print('window pos: {}'.format(window))
         bbox = (lux + window[0], luy + window[1], rlx + window[0], rly + window[1])
         im = ImageGrab.grab(bbox)        
@@ -26,15 +26,15 @@ class ImageProcessing:
 
     # transforma img em grayscale e soma pixels
     def get_box_hash(self, lux: int, luy: int, rlx: int, rly: int):
-        im = self.__screen_grab(lux, luy, rlx, rly)
-        if (im != False):
+        try:
+            im = self.__screen_grab(lux, luy, rlx, rly)
             im = ImageOps.grayscale(im)
             a = np.array(im.getcolors())
             a = a.sum()
             # print('pixel sum: {}'.format(a))
             # im.save(os.getcwd() + '\\cut_' + str(a) + '_' + str(datetime.datetime.now()).replace(':','') + '.png', 'PNG')
             return a
-        else:
-            return -1
+        except:
+            raise
 
 

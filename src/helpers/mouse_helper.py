@@ -18,7 +18,7 @@ class mouse_helper:
         try:
             window_pos = ut.get_window_pos()
         except:
-            return
+            raise
 
         coord = (coord[0] + window_pos[0], coord[1] + window_pos[1])
         win32api.SetCursorPos(coord)
@@ -28,7 +28,7 @@ class mouse_helper:
         try:
             window_pos = ut.get_window_pos()
         except:
-            return
+            raise
 
         mouse_x, mouse_y = win32gui.GetCursorPos()
         x, y = (mouse_x - window_pos[0]), (mouse_y - window_pos[1])

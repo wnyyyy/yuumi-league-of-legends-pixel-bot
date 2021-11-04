@@ -15,8 +15,10 @@ class Yuumi:
         self.img_p = ImageProcessing(1600, 900)
 
     def __current_w_status(self):
-        hash = self.img_p.get_box_hash(CH_W_UL[0], CH_W_UL[1], CH_W_LR[0], CH_W_LR[1])
-        # print(hash)
+        try:
+            hash = self.img_p.get_box_hash(CH_W_UL[0], CH_W_UL[1], CH_W_LR[0], CH_W_LR[1])
+        except:
+            logging.warning('Falha ao calcular hash')
         if (hash == Hashes.SKILL_W_IS_ATTACHED):
             logging.info('w status: attached')
             self.attached = True
@@ -46,7 +48,7 @@ class Yuumi:
 
         mouse.move_mouse(coords)
         time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
-        #keyboard.press_ingame('w')
+        keyboard.press_ingame('w')
         logging.info('attached to ally {}'.format(self.buddyId))
         time.sleep(Buffers.BUFFER_ABILITY_CASTED)
 

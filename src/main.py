@@ -1,6 +1,5 @@
 import logging
 import time
-
 from helpers.mouse_helper import mouse_helper as mouse_helper
 from pixel_bot import PixelBot
 from yuumi import Yuumi
@@ -23,6 +22,8 @@ pixel_bot.play_game()
 if (debug):
     while True:
         time.sleep(1)
-        mouse_helper.get_coords()
-        time.sleep(1)
+        try:
+            mouse_helper.get_coords()
+        finally:
+            time.sleep(1)
 
