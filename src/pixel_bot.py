@@ -37,11 +37,11 @@ class PixelBot:
             logging.warning('Falha ao calcular hash')
             return False
         if (blue_side_check == Hashes.BLUE_SIDE_BLUE_CHECK and red_side_check == Hashes.BLUE_SIDE_RED_CHECK):
-            print('on blue team')
+            self.yuumi.playing_side = 'b'
+            logging.info('on blue team')
         elif (blue_side_check == Hashes.RED_SIDE_BLUE_CHECK and red_side_check == Hashes.RED_SIDE_RED_CHECK):
-            print('on red team')
-        print('blue = {}'.format(blue_side_check))
-        print('red = {}'.format(red_side_check))
+            logging.info('on red team')
+            self.yuumi.playing_side = 'r'
 
     # freeza o bot
     def thread_freeze_bot(self):
