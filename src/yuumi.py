@@ -22,19 +22,15 @@ class Yuumi:
             return 0
         if (hash == Hashes.SKILL_W_IS_ATTACHED):
             logging.info('w status: attached')
-            self.attached = True
             return 1
         elif (hash == Hashes.SKILL_W_IS_UP):
             logging.info('w status: skill up')
-            self.attached = False
             return 2
         elif (hash == Hashes.SKILL_W_IS_CASTING):
             logging.info('w status: casting')
-            self.attached = False
             return 3
         else:
             logging.info('w status: cooldown')
-            self.attached = False
             return 4
 
     def __attach_to_buddy(self):
@@ -64,12 +60,20 @@ class Yuumi:
     # função executada para comandar o bot
     def play(self):
 
-        # img_p = ImageProcessing(1600, 900)
-        # img_p.get_box_hash(CH_W_UL[0], CH_W_UL[1], CH_W_LR[0], CH_W_LR[1])
         w_status = self.__current_w_status()
-        if (self.attached == False):
-            logging.info('all alone :(')
+        if (w_status == 1):
+            self.attached == True
+        elif (self.attached == False and w_status == 2):
+            logging.info('all alone :( ... attaching...')
             self.__attach_to_buddy()
+        else:
+            logging.info('oh noes.. RUNNN!!!!!')
+            #self.__run_to_base()
+
+        if (self.attached == True):
+            #self.__attempt_healing
+            pass
+            
 
         # upa skills prioridade para upar skills é R > E > W > Q
         #self.__level_up('rewq')
