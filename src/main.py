@@ -2,7 +2,6 @@ import logging
 import time
 from helpers.mouse_helper import mouse_helper as mouse_helper
 from pixel_bot import PixelBot
-from yuumi import Yuumi
 import threading as th
 
 
@@ -12,8 +11,7 @@ debug = True
 
 logging.basicConfig(filename='pixelbot.log', encoding='utf-8', level=logging.DEBUG)
 logging.info("Starting game...")
-yuumi = Yuumi(4)
-pixel_bot = PixelBot(yuumi)
+pixel_bot = PixelBot()
 th.Thread(target = pixel_bot.thread_freeze_bot, args = (), name = pixel_bot.thread_freeze_bot).start()
 # pixelBot.game_init()
 pixel_bot.play_game()
