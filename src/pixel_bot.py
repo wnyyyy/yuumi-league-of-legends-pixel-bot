@@ -1,11 +1,16 @@
+from time import sleep
+import time
 import psutil
 import win32gui, win32com.client
+import keyboard as py_keyboard
+from enums import Buffers
 from helpers.keyboard import keyboard_helper as keyboard
 
 # classe da engine
 class PixelBot:
     def __init__(self, yuumi):
         self.yuumi = yuumi
+        self.active = True
 
     # foca janela do jogo
     def __set_window_active(self):
@@ -16,10 +21,11 @@ class PixelBot:
         shell.SendKeys('%')
         win32gui.SetForegroundWindow(window)
 
-    # retorna true se janela do jogo está ativa
+    # retorna true se janela do jogo está ativa (NAO FUNCIONA)
     def __is_window_active(self):
+        time.sleep(5)
         window = win32gui.FindWindow(None, "League of Legends")
-        active_window = win32gui.GetActiveWindow()
+        active_window = win32gui.GetForegroundWindow()
         return window == active_window
 
     # checa se processo do jogo existe
@@ -35,6 +41,15 @@ class PixelBot:
     # aperta y para trancar câmera
     def __lock_camera():
         keyboard.press_ingame('y')
+
+    # freeza o bot
+    def thread_freeze_bot(self):
+        while True:
+            py_keyboard.record('F9')
+            if (self.active):
+                self.active = False
+            else:
+                self.active = True
         
     # primeira ação do bot ao entrar na partida
     def game_init(self):
@@ -45,6 +60,8 @@ class PixelBot:
     # loop que faz o bot agir enquanto o jogo estiver aberto
     def play_game(self):
         while self.__is_ingame():
-            if (self.__is_window_active):
+            if (self.active):
+                self.__set_window_active()
+                time.sleep(Buffers.BUFFER_WINDOW_FOCUSED)
                 self.yuumi.play()
             
