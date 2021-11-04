@@ -44,6 +44,7 @@ class PixelBot:
     # loop que faz o bot agir enquanto o jogo estiver aberto
     def play_game(self):
         while self.__is_ingame():
+            time.sleep(Buffers.BUFFER_ACTION_DELAY)
             if (self.active):
                 ut.set_window_active()
                 time.sleep(Buffers.BUFFER_WINDOW_FOCUSED)
