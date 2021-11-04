@@ -8,10 +8,10 @@ SHOP_FIRST_BUY = (300, 304)
 SHOP_TAB_RECOMENDADOS = (220, 113)
 
 # minimapa
-TEAM_ALLY_1 = (1125, 498) # top
-TEAM_ALLY_2 = (1166, 498) # jg
-TEAM_ALLY_3 = (1212, 498) # mid
-TEAM_ALLY_4 = (1260, 498) # adc
+TEAM_ALLY_1 = (1390, 600) # top
+TEAM_ALLY_2 = (1449, 600) # jg
+TEAM_ALLY_3 = (1510, 600) # mid
+TEAM_ALLY_4 = (1568, 600) # adc
 
 # champion
 # 9953 - attached, 9378 - skill up, 2345 - casting
