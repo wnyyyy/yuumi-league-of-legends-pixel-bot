@@ -34,3 +34,4 @@ class mouse_helper:
         x, y = (mouse_x - window_pos[0]), (mouse_y - window_pos[1])
 
         print('x: {} y: {}'.format(x, y))
+        return (x, y)
