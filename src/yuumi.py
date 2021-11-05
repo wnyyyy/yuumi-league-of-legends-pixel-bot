@@ -15,7 +15,7 @@ class Yuumi:
         self.buddy_coord = buddy_coord
         self.playing_side = 'b'
         self.img_p = ImageProcessing(1600, 900)
-        self.mana = 100
+        self.mana = -1
 
     def __update_my_mana(self):
         black_amount = self.img_p.get_pixels_amount(YUUMI_MANA_BAR_L_COORD[0], YUUMI_MANA_BAR_L_COORD[1], YUUMI_MANA_BAR_R_COORD[0], YUUMI_MANA_BAR_R_COORD[1], Hashes.EMPTY_PIXEL_BAR)
