@@ -36,12 +36,12 @@ class Yuumi:
 
     def __attach_to_buddy(self):
         try:
-            mouse.move_mouse(self.buddy_id)
+            mouse.move_mouse(self.buddy_coord)
         except:
             return
         time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
         keyboard.press_ingame('w')
-        logging.info('attached to ally {}'.format(self.buddy_id))
+        logging.info('attached to ally {}'.format(self.buddy_coord))
         time.sleep(Buffers.BUFFER_ABILITY_CASTED)
 
     # itera pela string de prioridade e pressiona ctrl + tecla para cada skill, em ordem de prioridade

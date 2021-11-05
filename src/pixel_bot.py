@@ -8,12 +8,11 @@ import helpers.util as ut
 from enums import Buffers, Hashes
 from helpers.keyboard import keyboard_helper as keyboard
 from yuumi import Yuumi
-from coordinates import coordinates as coord
 
 # classe da engine
 class PixelBot:
     def __init__(self):
-        self.yuumi = Yuumi(coord.ALLY_ADC)
+        self.yuumi = Yuumi(ALLY_ADC)
         self.active = True
 
     # checa se processo do jogo existe
@@ -32,8 +31,8 @@ class PixelBot:
 
     def __get_playing_side(self):
         try:
-            blue_side_check = self.yuumi.img_p.get_box_hash(MAP_BLUE_BASE_UL[0], MAP_BLUE_BASE_UL[1], MAP_BLUE_BASE_LR[0], MAP_BLUE_BASE_LR[1])
-            red_side_check = self.yuumi.img_p.get_box_hash(MAP_RED_BASE_UL[0], MAP_RED_BASE_UL[1], MAP_RED_BASE_LR[0], MAP_RED_BASE_LR[1])
+            blue_side_check = self.yuumi.img_p.get_box_hash(MAP_BLUE_BASE_UL_COORD[0], MAP_BLUE_BASE_UL_COORD[1], MAP_BLUE_BASE_LR_COORD[0], MAP_BLUE_BASE_LR_COORD[1])
+            red_side_check = self.yuumi.img_p.get_box_hash(MAP_RED_BASE_UL_COORD[0], MAP_RED_BASE_UL_COORD[1], MAP_RED_BASE_LR_COORD[0], MAP_RED_BASE_LR_COORD[1])
         except:
             logging.warning('Falha ao calcular hash')
             return False
