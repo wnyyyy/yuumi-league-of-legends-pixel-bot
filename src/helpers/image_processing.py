@@ -23,7 +23,7 @@ class ImageProcessing:
         bbox = (lux + window[0], luy + window[1], rlx + window[0], rly + window[1])
         im = ImageGrab.grab(bbox)        
         return im
-
+    
     # transforma img em grayscale e soma pixels
     def get_box_hash(self, lux: int, luy: int, rlx: int, rly: int):
         try:
@@ -31,9 +31,20 @@ class ImageProcessing:
             im = ImageOps.grayscale(im)
             a = np.array(im.getcolors())
             a = a.sum()
-            # print('pixel sum: {}'.format(a))
+            print('pixel sum: {}'.format(a))
             # im.save(os.getcwd() + '\\cut_' + str(a) + '_' + str(datetime.datetime.now()).replace(':','') + '.png', 'PNG')
             return a
+        except:
+            raise Exception
+
+    def get_pixels_amount(self, lux: int, luy: int, rlx: int, rly: int, target_hash):
+        try:
+            im = self.__screen_grab(lux, luy, rlx, rly)
+            im = ImageOps.grayscale(im)
+            pixels = list(im.getdata())
+            amount = pixels.count(target_hash)
+
+            return amount
         except:
             raise Exception
 
