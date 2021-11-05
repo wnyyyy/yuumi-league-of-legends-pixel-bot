@@ -31,7 +31,7 @@ class ImageProcessing:
             im = ImageOps.grayscale(im)
             a = np.array(im.getcolors())
             a = a.sum()
-            print('pixel sum: {}'.format(a))
+            # print('pixel sum: {}'.format(a))
             # im.save(os.getcwd() + '\\cut_' + str(a) + '_' + str(datetime.datetime.now()).replace(':','') + '.png', 'PNG')
             return a
         except:
