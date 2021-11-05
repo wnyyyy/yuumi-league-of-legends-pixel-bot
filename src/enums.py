@@ -8,6 +8,7 @@ class Hashes(IntEnum):
     RED_SIDE_RED_CHECK = 215
     BLUE_SIDE_BLUE_CHECK = 2051
     BLUE_SIDE_RED_CHECK = 133
+    EMPTY_PIXEL_BAR = 3
 
 class Buffers(IntEnum):
     BUFFER_ACTION_DELAY = .5

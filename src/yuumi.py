@@ -14,6 +14,12 @@ class Yuumi:
         self.buddy_coord = buddy_coord
         self.playing_side = 'b'
         self.img_p = ImageProcessing(1600, 900)
+        self.mana = 100
+
+    def __update_my_mana(self):
+        black_amount = self.img_p.get_pixels_amount(YUUMI_MANA_BAR_L_COORD[0], YUUMI_MANA_BAR_L_COORD[1], YUUMI_MANA_BAR_R_COORD[0], YUUMI_MANA_BAR_R_COORD[1], Hashes.EMPTY_PIXEL_BAR)
+        total = YUUMI_MANA_BAR_R_COORD[0] - YUUMI_MANA_BAR_L_COORD[0]
+        #print('total: {total}, black amount: {black_amount}'.format(total=total, black_amount=black_amount))
 
     def __current_w_status(self):
         try:
@@ -50,7 +56,7 @@ class Yuumi:
             keyboard.pressHoldRelease_ingame('ctrl', char)
             time.sleep(Buffers.BUFFER_SKILL_LEVELING)
             
-    def __attempt_ultimante():
+    def __attempt_ultimate():
         pass
     
     def __attempt_healing():
@@ -62,6 +68,7 @@ class Yuumi:
     # função executada para comandar o bot
     def play(self):
 
+        self.__update_my_mana()
         w_status = self.__current_w_status()
         if (w_status == 1):
             self.attached == True
@@ -81,3 +88,4 @@ class Yuumi:
 
         # upa skills prioridade para upar skills é R > E > W > Q
         #self.__level_up('rewq')
+ 
