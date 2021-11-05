@@ -1,3 +1,4 @@
+import numpy as np
 import win32gui, win32com.client
 
 # pega posiçao da janela focada na tela
@@ -18,3 +19,6 @@ def set_window_active():
     shell = win32com.client.Dispatch("WScript.Shell")
     shell.SendKeys('%')
     win32gui.SetForegroundWindow(window)
+
+def clamp(n, minn, maxn):
+    return max(min(maxn, n), minn)
