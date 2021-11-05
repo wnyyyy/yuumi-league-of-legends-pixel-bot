@@ -24,3 +24,7 @@ MAP_RED_BASE_LR = (1507, 619)
 # 9953 - attached, 9378 - skill up, 2345 - casting
 CH_W_UL = (681, 809) 
 CH_W_LR = (691, 820)
+
+#
+CH_MANA_BAR_R = (916, 882)
+CH_MANA_BAR_L = (567, 881)
