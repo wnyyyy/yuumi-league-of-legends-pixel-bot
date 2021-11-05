@@ -8,11 +8,12 @@ import helpers.util as ut
 from enums import Buffers, Hashes
 from helpers.keyboard import keyboard_helper as keyboard
 from yuumi import Yuumi
+from coordinates import coordinates as coord
 
 # classe da engine
 class PixelBot:
     def __init__(self):
-        self.yuumi = Yuumi(4)
+        self.yuumi = Yuumi(coord.ALLY_ADC)
         self.active = True
 
     # checa se processo do jogo existe

@@ -9,15 +9,15 @@ from helpers.mouse_helper import mouse_helper as mouse
 # classe que contém as funcionalidades do bot
 class Yuumi:
 
-    def __init__(self, buddyId):
+    def __init__(self, buddy_coord):
         self.attached = False
-        self.buddyId = buddyId
+        self.buddy_coord = buddy_coord
         self.playing_side = 'b'
         self.img_p = ImageProcessing(1600, 900)
 
     def __current_w_status(self):
         try:
-            hash = self.img_p.get_box_hash(CH_W_UL[0], CH_W_UL[1], CH_W_LR[0], CH_W_LR[1])
+            hash = self.img_p.get_box_hash(YUUMI_W_UL_COORD[0], YUUMI_W_UL_COORD[1], YUUMI_W_LR_COORD[0], YUUMI_W_LR_COORD[1])
         except:
             logging.warning('Falha ao calcular hash')
             return 0
@@ -35,21 +35,13 @@ class Yuumi:
             return 4
 
     def __attach_to_buddy(self):
-        coords = TEAM_ALLY_4
-        if (self.buddyId == 1):
-            coords = TEAM_ALLY_1
-        elif (self.buddyId == 2):
-            coords = TEAM_ALLY_2
-        elif (self.buddyId == 3):
-            coords = TEAM_ALLY_3
-
         try:
-            mouse.move_mouse(coords)
+            mouse.move_mouse(self.buddy_id)
         except:
             return
         time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
         keyboard.press_ingame('w')
-        logging.info('attached to ally {}'.format(self.buddyId))
+        logging.info('attached to ally {}'.format(self.buddy_id))
         time.sleep(Buffers.BUFFER_ABILITY_CASTED)
 
     # itera pela string de prioridade e pressiona ctrl + tecla para cada skill, em ordem de prioridade
