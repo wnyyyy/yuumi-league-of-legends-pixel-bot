@@ -1,5 +1,6 @@
 import time
 import logging
+import helpers.util as ut
 from coordinates import *
 from enums import Hashes, Buffers
 from helpers.image_processing import ImageProcessing
@@ -18,8 +19,9 @@ class Yuumi:
 
     def __update_my_mana(self):
         black_amount = self.img_p.get_pixels_amount(YUUMI_MANA_BAR_L_COORD[0], YUUMI_MANA_BAR_L_COORD[1], YUUMI_MANA_BAR_R_COORD[0], YUUMI_MANA_BAR_R_COORD[1], Hashes.EMPTY_PIXEL_BAR)
-        total = YUUMI_MANA_BAR_R_COORD[0] - YUUMI_MANA_BAR_L_COORD[0]
-        #print('total: {total}, black amount: {black_amount}'.format(total=total, black_amount=black_amount))
+        #interpolação com valores x 0 113 e 266 para y 0 50 e 100
+        self.mana = round(104 - (-0.00043*black_amount**2 + 0.49162*black_amount))
+        self.mana = ut.clamp(self.mana, 0, 100)
 
     def __current_w_status(self):
         try:
