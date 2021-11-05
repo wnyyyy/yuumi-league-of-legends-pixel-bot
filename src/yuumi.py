@@ -57,6 +57,15 @@ class Yuumi:
         for char in priority:
             keyboard.pressHoldRelease_ingame('ctrl', char)
             time.sleep(Buffers.BUFFER_SKILL_LEVELING)
+            
+    def __attempt_ultimante():
+        pass
+    
+    def __attempt_healing():
+        pass
+    
+    def __use_trinket():
+        keyboard.press_ingame('4')            
 
     # função executada para comandar o bot
     def play(self):
@@ -71,10 +80,10 @@ class Yuumi:
             logging.info('oh noes.. RUNNN!!!!!')
             #self.__run_to_base()
 
-        if (self.attached == True):
+        if (self.attached):
             #self.__attempt_ultimate()
             #self.__attempt_healing()
-            #self.__use_trinket()
+            self.__use_trinket()
             pass
             
 
