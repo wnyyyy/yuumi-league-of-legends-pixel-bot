@@ -34,11 +34,16 @@ class Yuumi:
         if (old - self.ally_health > 40):
             self.__attempt_ultimate()
             print('ult')
-        pass
 
     def __update_level(self):
         hash = self.img_p.get_box_hash(YUUMI_LVL_UL[0],YUUMI_LVL_UL[1], YUUMI_LVL_LR[0], YUUMI_LVL_LR[1])
-        self.curr_lvl = LevelBoxHashDict[hash]        
+        lvl = LevelBoxHashDict[hash]
+        if (self.curr_lvl != lvl):
+            priority = "rewq"
+            time.sleep(Buffers.BUFFER_SKILL_LEVELING)
+            for char in priority:
+                keyboard.pressHoldRelease_ingame('ctrl', char)
+            self.curr_lvl = lvl            
 
     def __current_w_status(self):
         try:
@@ -68,12 +73,6 @@ class Yuumi:
         keyboard.press_ingame('w')
         logging.info('attached to ally {}'.format(self.buddy_coord))
         time.sleep(Buffers.BUFFER_ABILITY_CASTED)
-
-    def __level_up(self):   
-        priority = "rewq"     
-        for char in priority:
-            keyboard.pressHoldRelease_ingame('ctrl', char)
-            time.sleep(Buffers.BUFFER_SKILL_LEVELING)
             
     def __attempt_ultimate(self):
         pass
