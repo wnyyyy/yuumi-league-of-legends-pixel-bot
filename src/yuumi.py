@@ -26,9 +26,13 @@ class Yuumi:
         #print('mana: ' + str(self.mana))
 
     def __update_ally_health(self):
+        old = self.ally_health
         black_amount = self.img_p.get_pixels_amount(ALLY_ADC_HEALTH_L_COORD[0], ALLY_ADC_HEALTH_L_COORD[1], ALLY_ADC_HEALTH_R_COORD[0], ALLY_ADC_HEALTH_R_COORD[1], Hashes.EMPTY_PIXEL_BAR_ALLY, 3)
         self.ally_health =  round(100 + (black_amount * 100 / (ALLY_ADC_HEALTH_L_COORD[0] - ALLY_ADC_HEALTH_R_COORD[0] - 2)))
         # print('ally health: ' + str(self.ally_health))
+        if (old - self.ally_health > 40):
+            self.__attempt_ultimate()
+            print('ult')
         pass
 
     def __current_w_status(self):
@@ -60,17 +64,17 @@ class Yuumi:
         logging.info('attached to ally {}'.format(self.buddy_coord))
         time.sleep(Buffers.BUFFER_ABILITY_CASTED)
 
-    # itera pela string de prioridade e pressiona ctrl + tecla para cada skill, em ordem de prioridade
-    def __level_up(priority: str):        
+    def __level_up(self):   
+        priority = "rewq"     
         for char in priority:
             keyboard.pressHoldRelease_ingame('ctrl', char)
             time.sleep(Buffers.BUFFER_SKILL_LEVELING)
             
-    def __attempt_ultimate():
+    def __attempt_ultimate(self):
         pass
     
     def __attempt_healing(self):
-        if (self.mana > 80) or (self.mana > 40 and self.ally_health < 75) or (self.ally_health < 30):
+        if (self.mana > 95) or (self.mana > 40 and self.ally_health < 75) or (self.ally_health < 30):
             keyboard.press_ingame('e')
     
     def __use_trinket():
@@ -79,7 +83,7 @@ class Yuumi:
     # função executada para comandar o bot
     def play(self):
 
-        #ms = mouse.get_coords()
+        ms = mouse.get_coords()
         #self.img_p.get_box_hash(ms[0], ms[1], ms[0]+1, ms[1]+1)
         #print(self.img_p.get_pixels_amount(ALLY_ADC_HEALTH_L_COORD[0], ALLY_ADC_HEALTH_L_COORD[1], ALLY_ADC_HEALTH_R_COORD[0], ALLY_ADC_HEALTH_R_COORD[1], Hashes.EMPTY_PIXEL_BAR_ALLY, 3))
         self.__update_my_mana()
@@ -99,9 +103,8 @@ class Yuumi:
             #self.__attempt_ultimate()
             self.__attempt_healing()
             #self.__use_trinket()
-            pass
-            
+            pass            
 
         # upa skills prioridade para upar skills é R > E > W > Q
-        #self.__level_up('rewq')
+        self.__level_up()
  

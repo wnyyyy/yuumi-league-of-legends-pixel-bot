@@ -13,7 +13,7 @@ logging.basicConfig(filename='pixelbot.log', encoding='utf-8', level=logging.DEB
 logging.info("Starting game...")
 pixel_bot = PixelBot()
 th.Thread(target = pixel_bot.thread_freeze_bot, args = (), name = pixel_bot.thread_freeze_bot).start()
-pixel_bot.game_init()
+# pixel_bot.game_init()
 pixel_bot.play_game()
 
 # registra coordenadas do cursor para debug
