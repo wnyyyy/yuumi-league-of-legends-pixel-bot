@@ -1,11 +1,12 @@
 import time
 import logging
 import helpers.util as ut
-from coordinates import *
-from enums import Hashes, Buffers, LevelBoxHashDict
 from helpers.image_processing import ImageProcessing
 from helpers.keyboard import keyboard_helper as keyboard
 from helpers.mouse_helper import mouse_helper as mouse
+from constants.buffers import *
+from constants.coordinates import *
+from constants.hashes import *
 
 # classe que contém as funcionalidades do bot
 class Yuumi:
@@ -20,7 +21,7 @@ class Yuumi:
         self.curr_lvl = 0
 
     def __update_my_mana(self):
-        black_amount = self.img_p.get_pixels_amount(YUUMI_MANA_BAR_L_COORD[0], YUUMI_MANA_BAR_L_COORD[1], YUUMI_MANA_BAR_R_COORD[0], YUUMI_MANA_BAR_R_COORD[1], Hashes.EMPTY_PIXEL_BAR, 2)
+        black_amount = self.img_p.get_pixels_amount(Coords.YUUMI_MANA_BAR_L_COORD[0], Coords.YUUMI_MANA_BAR_L_COORD[1], Coords.YUUMI_MANA_BAR_R_COORD[0], Coords.YUUMI_MANA_BAR_R_COORD[1], Hashes.EMPTY_PIXEL_BAR, 2)
         #interpolação com valores x 0 113 e 266 para y 0 50 e 100
         self.mana = round(104 - (-0.00043*black_amount**2 + 0.49162*black_amount))
         self.mana = ut.clamp(self.mana, 0, 100)
@@ -28,16 +29,16 @@ class Yuumi:
 
     def __update_ally_health(self):
         old = self.ally_health
-        black_amount = self.img_p.get_pixels_amount(ALLY_ADC_HEALTH_L_COORD[0], ALLY_ADC_HEALTH_L_COORD[1], ALLY_ADC_HEALTH_R_COORD[0], ALLY_ADC_HEALTH_R_COORD[1], Hashes.EMPTY_PIXEL_BAR_ALLY, 3)
-        self.ally_health =  round(100 + (black_amount * 100 / (ALLY_ADC_HEALTH_L_COORD[0] - ALLY_ADC_HEALTH_R_COORD[0] - 2)))
+        black_amount = self.img_p.get_pixels_amount(Coords.ALLY_ADC_HEALTH_L_COORD[0], Coords.ALLY_ADC_HEALTH_L_COORD[1], Coords.ALLY_ADC_HEALTH_R_COORD[0], Coords.ALLY_ADC_HEALTH_R_COORD[1], Hashes.EMPTY_PIXEL_BAR_ALLY, 3)
+        self.ally_health =  round(100 + (black_amount * 100 / (Coords.ALLY_ADC_HEALTH_L_COORD[0] - Coords.ALLY_ADC_HEALTH_R_COORD[0] - 2)))
         # print('ally health: ' + str(self.ally_health))
         if (old - self.ally_health > 40):
             self.__attempt_ultimate()
             print('ult')
 
     def __update_level(self):
-        hash = self.img_p.get_box_hash(YUUMI_LVL_UL[0],YUUMI_LVL_UL[1], YUUMI_LVL_LR[0], YUUMI_LVL_LR[1])
-        lvl = LevelBoxHashDict[hash]
+        hash = self.img_p.get_box_hash(Coords.YUUMI_LVL_UL[0],Coords.YUUMI_LVL_UL[1], Coords.YUUMI_LVL_LR[0], Coords.YUUMI_LVL_LR[1])
+        lvl = Hashes.LevelBoxHashDict[hash]
         if (self.curr_lvl != lvl):
             priority = "rewq"
             time.sleep(Buffers.BUFFER_SKILL_LEVELING)
@@ -47,7 +48,7 @@ class Yuumi:
 
     def __current_w_status(self):
         try:
-            hash = self.img_p.get_box_hash(YUUMI_W_UL_COORD[0], YUUMI_W_UL_COORD[1], YUUMI_W_LR_COORD[0], YUUMI_W_LR_COORD[1])
+            hash = self.img_p.get_box_hash(Coords.YUUMI_W_UL_COORD[0], Coords.YUUMI_W_UL_COORD[1], Coords.YUUMI_W_LR_COORD[0], Coords.YUUMI_W_LR_COORD[1])
         except:
             logging.warning('Falha ao calcular hash')
             return 0
@@ -89,7 +90,7 @@ class Yuumi:
 
         # ms = mouse.get_coords()
         #self.img_p.get_box_hash(ms[0], ms[1], ms[0]+1, ms[1]+1)
-        self.img_p.get_box_hash(YUUMI_LVL_UL[0],YUUMI_LVL_UL[1], YUUMI_LVL_LR[0], YUUMI_LVL_LR[1])
+        self.img_p.get_box_hash(Coords.YUUMI_LVL_UL[0],Coords.YUUMI_LVL_UL[1], Coords.YUUMI_LVL_LR[0], Coords.YUUMI_LVL_LR[1])
         #print(self.img_p.get_pixels_amount(ALLY_ADC_HEALTH_L_COORD[0], ALLY_ADC_HEALTH_L_COORD[1], ALLY_ADC_HEALTH_R_COORD[0], ALLY_ADC_HEALTH_R_COORD[1], Hashes.EMPTY_PIXEL_BAR_ALLY, 3))
         self.__update_my_mana()
         self.__update_ally_health()
