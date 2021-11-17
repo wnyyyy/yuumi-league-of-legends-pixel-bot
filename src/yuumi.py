@@ -16,12 +16,22 @@ class Yuumi:
         self.playing_side = 'b'
         self.img_p = ImageProcessing(1600, 900)
         self.mana = -1
+        self.ally_health = -1
 
     def __update_my_mana(self):
-        black_amount = self.img_p.get_pixels_amount(YUUMI_MANA_BAR_L_COORD[0], YUUMI_MANA_BAR_L_COORD[1], YUUMI_MANA_BAR_R_COORD[0], YUUMI_MANA_BAR_R_COORD[1], Hashes.EMPTY_PIXEL_BAR)
+        black_amount = self.img_p.get_pixels_amount(YUUMI_MANA_BAR_L_COORD[0], YUUMI_MANA_BAR_L_COORD[1], YUUMI_MANA_BAR_R_COORD[0], YUUMI_MANA_BAR_R_COORD[1], Hashes.EMPTY_PIXEL_BAR, 2)
         #interpolação com valores x 0 113 e 266 para y 0 50 e 100
         self.mana = round(104 - (-0.00043*black_amount**2 + 0.49162*black_amount))
         self.mana = ut.clamp(self.mana, 0, 100)
+        #print('mana: ' + str(self.mana))
+
+    def __update_ally_health(self):
+        black_amount = self.img_p.get_pixels_amount(ALLY_ADC_HEALTH_L_COORD[0], ALLY_ADC_HEALTH_L_COORD[1], ALLY_ADC_HEALTH_R_COORD[0], ALLY_ADC_HEALTH_R_COORD[1], Hashes.EMPTY_PIXEL_BAR_ALLY, 3)
+        print('black: ' + str(black_amount))
+        self.ally_health =  round(100 + (black_amount * 100 / (ALLY_ADC_HEALTH_L_COORD[0] - ALLY_ADC_HEALTH_R_COORD[0] - 2)))
+        self.ally_health = ut.clamp(self.ally_health, 0, 100)
+        print('temp: ' + str(self.ally_health))
+        pass
 
     def __current_w_status(self):
         try:
@@ -61,8 +71,9 @@ class Yuumi:
     def __attempt_ultimate():
         pass
     
-    def __attempt_healing():
-        pass
+    def __attempt_healing(self):
+        if (self.mana > 80) or (self.mana > 40 and self.ally_health < 70) or (self.ally_health < 30):
+            keyboard.press_ingame('e')
     
     def __use_trinket():
         keyboard.press_ingame('4')            
@@ -70,7 +81,11 @@ class Yuumi:
     # função executada para comandar o bot
     def play(self):
 
+        #ms = mouse.get_coords()
+        #self.img_p.get_box_hash(ms[0], ms[1], ms[0]+1, ms[1]+1)
+        #print(self.img_p.get_pixels_amount(ALLY_ADC_HEALTH_L_COORD[0], ALLY_ADC_HEALTH_L_COORD[1], ALLY_ADC_HEALTH_R_COORD[0], ALLY_ADC_HEALTH_R_COORD[1], Hashes.EMPTY_PIXEL_BAR_ALLY, 3))
         self.__update_my_mana()
+        self.__update_ally_health()
         w_status = self.__current_w_status()
         if (w_status == 1):
             self.attached == True
@@ -84,7 +99,7 @@ class Yuumi:
         if (self.attached):
             #self.__attempt_ultimate()
             #self.__attempt_healing()
-            self.__use_trinket()
+            #self.__use_trinket()
             pass
             
 
