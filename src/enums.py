@@ -10,24 +10,27 @@ class Hashes(IntEnum):
     BLUE_SIDE_RED_CHECK = 133
     EMPTY_PIXEL_BAR = 3
     EMPTY_PIXEL_BAR_ALLY = 20
-    LVL_1 = 3494
-    LVL_2 = 5626
-    LVL_3 = 5302
-    LVL_4 = 5303
-    LVL_5 = 6306
-    LVL_6 = 7416
-    LVL_7 = 4093
-    LVL_8 = 7067
-    LVL_9 = 6970
-    LVL_10 = 7203
-    LVL_11 = 3914
-    LVL_12 = 6793
-    LVL_13 = 6926
-    LVL_14 = 6088
-    LVL_15 = 7421
-    LVL_16 = 7920
-    LVL_17 = 4856
-    LVL_18 = 7523
+    
+    LevelBoxHashDict = {
+    3494: 1,
+    5626: 2, 
+    5302: 3, 
+    5303: 4, 
+    6306: 5,
+    7416: 6,
+    4093: 7,
+    7067: 8,
+    6970: 9,
+    7203: 10, 
+    3914: 11,
+    6793: 12,
+    6926: 13, 
+    6088: 14, 
+    7421: 15, 
+    7920: 16,
+    4856: 17, 
+    7523: 18
+    }
 
 class Buffers(IntEnum):
     BUFFER_ACTION_DELAY = .5
@@ -35,3 +38,4 @@ class Buffers(IntEnum):
     BUFFER_SKILL_LEVELING = .03
     BUFFER_ABILITY_CASTED = .03
     BUFFER_WINDOW_FOCUSED = .02
+    
