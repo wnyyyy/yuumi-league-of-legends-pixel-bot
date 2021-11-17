@@ -10,8 +10,8 @@ class Hashes(IntEnum):
     BLUE_SIDE_RED_CHECK = 133
     EMPTY_PIXEL_BAR = 3
     EMPTY_PIXEL_BAR_ALLY = 20
-    
-    LevelBoxHashDict = {
+
+LevelBoxHashDict = {
     3494: 1,
     5626: 2, 
     5302: 3, 
@@ -30,7 +30,7 @@ class Hashes(IntEnum):
     7920: 16,
     4856: 17, 
     7523: 18
-    }
+}
 
 class Buffers(IntEnum):
     BUFFER_ACTION_DELAY = .5

@@ -2,7 +2,7 @@ import time
 import logging
 import helpers.util as ut
 from coordinates import *
-from enums import Hashes, Buffers
+from enums import Hashes, Buffers, LevelBoxHashDict
 from helpers.image_processing import ImageProcessing
 from helpers.keyboard import keyboard_helper as keyboard
 from helpers.mouse_helper import mouse_helper as mouse
@@ -35,6 +35,10 @@ class Yuumi:
             self.__attempt_ultimate()
             print('ult')
         pass
+
+    def __update_level(self):
+        hash = self.img_p.get_box_hash(YUUMI_LVL_UL[0],YUUMI_LVL_UL[1], YUUMI_LVL_LR[0], YUUMI_LVL_LR[1])
+        self.curr_lvl = LevelBoxHashDict[hash]        
 
     def __current_w_status(self):
         try:
@@ -90,6 +94,7 @@ class Yuumi:
         #print(self.img_p.get_pixels_amount(ALLY_ADC_HEALTH_L_COORD[0], ALLY_ADC_HEALTH_L_COORD[1], ALLY_ADC_HEALTH_R_COORD[0], ALLY_ADC_HEALTH_R_COORD[1], Hashes.EMPTY_PIXEL_BAR_ALLY, 3))
         self.__update_my_mana()
         self.__update_ally_health()
+        self.__update_level()
         w_status = -6
         #w_status = self.__current_w_status()
         if (w_status == 1):
@@ -109,5 +114,5 @@ class Yuumi:
             pass            
 
         # upa skills prioridade para upar skills é R > E > W > Q
-        self.__level_up()
+        #self.__level_up()
  
