@@ -27,10 +27,8 @@ class Yuumi:
 
     def __update_ally_health(self):
         black_amount = self.img_p.get_pixels_amount(ALLY_ADC_HEALTH_L_COORD[0], ALLY_ADC_HEALTH_L_COORD[1], ALLY_ADC_HEALTH_R_COORD[0], ALLY_ADC_HEALTH_R_COORD[1], Hashes.EMPTY_PIXEL_BAR_ALLY, 3)
-        print('black: ' + str(black_amount))
         self.ally_health =  round(100 + (black_amount * 100 / (ALLY_ADC_HEALTH_L_COORD[0] - ALLY_ADC_HEALTH_R_COORD[0] - 2)))
-        self.ally_health = ut.clamp(self.ally_health, 0, 100)
-        print('temp: ' + str(self.ally_health))
+        # print('ally health: ' + str(self.ally_health))
         pass
 
     def __current_w_status(self):
@@ -72,7 +70,7 @@ class Yuumi:
         pass
     
     def __attempt_healing(self):
-        if (self.mana > 80) or (self.mana > 40 and self.ally_health < 70) or (self.ally_health < 30):
+        if (self.mana > 80) or (self.mana > 40 and self.ally_health < 75) or (self.ally_health < 30):
             keyboard.press_ingame('e')
     
     def __use_trinket():
@@ -88,8 +86,9 @@ class Yuumi:
         self.__update_ally_health()
         w_status = self.__current_w_status()
         if (w_status == 1):
-            self.attached == True
-        elif (self.attached == False and w_status == 2):
+            self.attached = True
+        elif (w_status == 2):
+            self.attached = False
             logging.info('all alone :( ... attaching...')
             self.__attach_to_buddy()
         else:
@@ -98,7 +97,7 @@ class Yuumi:
 
         if (self.attached):
             #self.__attempt_ultimate()
-            #self.__attempt_healing()
+            self.__attempt_healing()
             #self.__use_trinket()
             pass
             
