@@ -17,6 +17,7 @@ class Yuumi:
         self.img_p = ImageProcessing(1600, 900)
         self.mana = -1
         self.ally_health = -1
+        self.curr_lvl = 0
 
     def __update_my_mana(self):
         black_amount = self.img_p.get_pixels_amount(YUUMI_MANA_BAR_L_COORD[0], YUUMI_MANA_BAR_L_COORD[1], YUUMI_MANA_BAR_R_COORD[0], YUUMI_MANA_BAR_R_COORD[1], Hashes.EMPTY_PIXEL_BAR, 2)
@@ -83,18 +84,20 @@ class Yuumi:
     # função executada para comandar o bot
     def play(self):
 
-        ms = mouse.get_coords()
+        # ms = mouse.get_coords()
         #self.img_p.get_box_hash(ms[0], ms[1], ms[0]+1, ms[1]+1)
+        self.img_p.get_box_hash(YUUMI_LVL_UL[0],YUUMI_LVL_UL[1], YUUMI_LVL_LR[0], YUUMI_LVL_LR[1])
         #print(self.img_p.get_pixels_amount(ALLY_ADC_HEALTH_L_COORD[0], ALLY_ADC_HEALTH_L_COORD[1], ALLY_ADC_HEALTH_R_COORD[0], ALLY_ADC_HEALTH_R_COORD[1], Hashes.EMPTY_PIXEL_BAR_ALLY, 3))
         self.__update_my_mana()
         self.__update_ally_health()
-        w_status = self.__current_w_status()
+        w_status = -6
+        #w_status = self.__current_w_status()
         if (w_status == 1):
             self.attached = True
         elif (w_status == 2):
             self.attached = False
             logging.info('all alone :( ... attaching...')
-            self.__attach_to_buddy()
+            # self.__attach_to_buddy()
         else:
             logging.info('oh noes.. RUNNN!!!!!')
             #self.__run_to_base()
