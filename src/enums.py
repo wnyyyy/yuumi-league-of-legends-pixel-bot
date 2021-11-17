@@ -10,6 +10,24 @@ class Hashes(IntEnum):
     BLUE_SIDE_RED_CHECK = 133
     EMPTY_PIXEL_BAR = 3
     EMPTY_PIXEL_BAR_ALLY = 20
+    LVL_1 = 3494
+    LVL_2 = 5626
+    LVL_3 = 5302
+    LVL_4 = 5303
+    LVL_5 = 6306
+    LVL_6 = 7416
+    LVL_7 = 4093
+    LVL_8 = 7067
+    LVL_9 = 6970
+    LVL_10 = 7203
+    LVL_11 = 3914
+    LVL_12 = 6793
+    LVL_13 = 6926
+    LVL_14 = 6088
+    LVL_15 = 7421
+    LVL_16 = 7920
+    LVL_17 = 4856
+    LVL_18 = 7523
 
 class Buffers(IntEnum):
     BUFFER_ACTION_DELAY = .5
