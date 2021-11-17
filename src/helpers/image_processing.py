@@ -1,3 +1,4 @@
+from logging import error
 from time import sleep
 from PIL import ImageGrab, ImageOps
 import numpy as np
@@ -37,12 +38,15 @@ class ImageProcessing:
         except:
             raise Exception
 
-    def get_pixels_amount(self, lux: int, luy: int, rlx: int, rly: int, target_hash):
+    def get_pixels_amount(self, lux: int, luy: int, rlx: int, rly: int, target_hash: int, error_margin: int):
         try:
             im = self.__screen_grab(lux, luy, rlx, rly)
             im = ImageOps.grayscale(im)
             pixels = list(im.getdata())
-            amount = pixels.count(target_hash)
+            amount = 0
+            for i in pixels:
+                if (abs(i - target_hash) <= error_margin):
+                    amount += 1
 
             return amount
         except:
