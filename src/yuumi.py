@@ -14,7 +14,7 @@ class Yuumi:
     def __init__(self, buddy_coord):
         self.attached = False
         self.buddy_coord = buddy_coord
-        self.playing_side = 'b'
+        self.playing_side = 'x'
         self.img_p = ImageProcessing(1600, 900)
         self.mana = -1
         self.ally_health = -1
@@ -38,13 +38,17 @@ class Yuumi:
 
     def __update_level(self):
         hash = self.img_p.get_box_hash(Coords.YUUMI_LVL_UL[0],Coords.YUUMI_LVL_UL[1], Coords.YUUMI_LVL_LR[0], Coords.YUUMI_LVL_LR[1])
-        lvl = Hashes.LevelBoxHashDict[hash]
-        if (self.curr_lvl != lvl):
-            priority = "rewq"
-            time.sleep(Buffers.BUFFER_SKILL_LEVELING)
-            for char in priority:
-                keyboard.pressHoldRelease_ingame('ctrl', char)
-            self.curr_lvl = lvl            
+        lvl = self.curr_lvl
+        try:
+            lvl = Hashes.LevelBoxHashDict[hash]
+        finally:
+            if (self.curr_lvl != lvl):
+                priority = "rewq"
+                time.sleep(Buffers.BUFFER_SKILL_LEVELING)
+                for char in priority:
+                    keyboard.pressHoldRelease_ingame('ctrl', char)
+                self.curr_lvl = lvl
+        
 
     def __current_w_status(self):
         try:
@@ -83,26 +87,27 @@ class Yuumi:
             keyboard.press_ingame('e')
     
     def __use_trinket():
-        keyboard.press_ingame('4')            
+        keyboard.press_ingame('4')
 
     # função executada para comandar o bot
     def play(self):
 
+        #print("side: " + self.playing_side)
         # ms = mouse.get_coords()
         #self.img_p.get_box_hash(ms[0], ms[1], ms[0]+1, ms[1]+1)
-        self.img_p.get_box_hash(Coords.YUUMI_LVL_UL[0],Coords.YUUMI_LVL_UL[1], Coords.YUUMI_LVL_LR[0], Coords.YUUMI_LVL_LR[1])
+        #self.img_p.get_box_hash(Coords.YUUMI_LVL_UL[0],Coords.YUUMI_LVL_UL[1], Coords.YUUMI_LVL_LR[0], Coords.YUUMI_LVL_LR[1])
         #print(self.img_p.get_pixels_amount(ALLY_ADC_HEALTH_L_COORD[0], ALLY_ADC_HEALTH_L_COORD[1], ALLY_ADC_HEALTH_R_COORD[0], ALLY_ADC_HEALTH_R_COORD[1], Hashes.EMPTY_PIXEL_BAR_ALLY, 3))
         self.__update_my_mana()
         self.__update_ally_health()
         self.__update_level()
-        w_status = -6
-        #w_status = self.__current_w_status()
+        #w_status = -6
+        w_status = self.__current_w_status()
         if (w_status == 1):
             self.attached = True
         elif (w_status == 2):
             self.attached = False
             logging.info('all alone :( ... attaching...')
-            # self.__attach_to_buddy()
+            self.__attach_to_buddy()
         else:
             logging.info('oh noes.. RUNNN!!!!!')
             #self.__run_to_base()
@@ -111,8 +116,4 @@ class Yuumi:
             #self.__attempt_ultimate()
             self.__attempt_healing()
             #self.__use_trinket()
-            pass            
-
-        # upa skills prioridade para upar skills é R > E > W > Q
-        #self.__level_up()
- 
+            pass
