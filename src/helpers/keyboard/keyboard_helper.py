@@ -164,6 +164,11 @@ def press_ingame(*args):
         time.sleep(.05)
         kb_scancode.ReleaseKey(kb_scancode.SCANCODES[i][0][0])
 
+def type_text(txt: str):
+    for c in txt:
+        press_ingame(c)
+
+
 def pressAndHold_ingame(*args):
     '''
     One press (no release!) using scancodes
