@@ -32,7 +32,7 @@ class PixelBot:
 
     def __get_playing_side(self):
         try:
-            blue_side_check = self.yuumi.img_p.get_box_hash(Coords.MAP_BLUE_BASE_UL_COORD[0], Coords.MAP_BLUE_BASE_UL_COORD[1], Coords.AP_BLUE_BASE_LR_COORD[0], Coords.MAP_BLUE_BASE_LR_COORD[1])
+            blue_side_check = self.yuumi.img_p.get_box_hash(Coords.MAP_BLUE_BASE_UL_COORD[0], Coords.MAP_BLUE_BASE_UL_COORD[1], Coords.MAP_BLUE_BASE_LR_COORD[0], Coords.MAP_BLUE_BASE_LR_COORD[1])
             red_side_check = self.yuumi.img_p.get_box_hash(Coords.MAP_RED_BASE_UL_COORD[0], Coords.MAP_RED_BASE_UL_COORD[1], Coords.MAP_RED_BASE_LR_COORD[0], Coords.MAP_RED_BASE_LR_COORD[1])
         except:
             logging.warning('Falha ao calcular hash')
@@ -65,7 +65,9 @@ class PixelBot:
         while self.__is_ingame():
             time.sleep(Buffers.BUFFER_ACTION_DELAY)
             if (self.active):
-                ut.set_window_active()
-                time.sleep(Buffers.BUFFER_WINDOW_FOCUSED)
+                #ut.set_window_active()
+                #time.sleep(Buffers.BUFFER_WINDOW_FOCUSED)
+                if (self.yuumi.playing_side == 'x'):
+                    self.__get_playing_side()
                 self.yuumi.play()
             
