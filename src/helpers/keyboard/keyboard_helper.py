@@ -155,7 +155,7 @@ VK_CODE = {'backspace':0x08,
 
 
 
-def press_ingame(*args):
+def press_in_game(*args):
     '''
     One press and release using scancodes
     '''
@@ -166,10 +166,10 @@ def press_ingame(*args):
 
 def type_text(txt: str):
     for c in txt:
-        press_ingame(c)
+        press_in_game(c)
 
 
-def pressAndHold_ingame(*args):
+def press_and_hold_in_game(*args):
     '''
     One press (no release!) using scancodes
     '''
@@ -185,7 +185,7 @@ def release_ingame(*args):
         kb_scancode.ReleaseKey(kb_scancode.SCANCODES[i][0][0])
         time.sleep(.05)
 
-def pressHoldRelease_ingame(*args):
+def press_hold_release_in_game(*args):
     '''
     press and hold passed in strings. Once held, release
     accepts as many arguments as you want. Using scancodes so suitable for in game
@@ -209,7 +209,7 @@ def press(*args):
         time.sleep(.05)
         win32api.keybd_event(VK_CODE[i],0 ,win32con.KEYEVENTF_KEYUP ,0)
 
-def pressAndHold(*args):
+def press_and_hold(*args):
     '''
     press and hold. Do NOT release.
     accepts as many arguments as you want.
@@ -219,7 +219,7 @@ def pressAndHold(*args):
         win32api.keybd_event(VK_CODE[i], 0,0,0)
         time.sleep(.05)
            
-def pressHoldRelease(*args):
+def press_hold_release(*args):
     '''
     press and hold passed in strings. Once held, release
     accepts as many arguments as you want.
