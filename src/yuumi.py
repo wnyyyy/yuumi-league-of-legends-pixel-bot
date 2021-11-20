@@ -143,14 +143,14 @@ class Yuumi:
         #print(self.img_p.get_pixels_amount(ALLY_ADC_HEALTH_L_COORD[0], ALLY_ADC_HEALTH_L_COORD[1], ALLY_ADC_HEALTH_R_COORD[0], ALLY_ADC_HEALTH_R_COORD[1], Hashes.EMPTY_PIXEL_BAR_ALLY, 3))
         self.__update_my_mana()
         self.__update_ally_health()
-        #self.__update_level()
+        self.__update_level()
         if (self.__is_in_base()):
             if (self.bought_items == False):
                 self.__buy_items()
         else:
             self.bought_items = False
-        w_status = -6
-        #w_status = self.__current_w_status()
+        #w_status = -6
+        w_status = self.__current_w_status()
         if (w_status == 1):
             self.attached = True
         elif (w_status == 2):
