@@ -11,6 +11,7 @@ class Coords:
     SHOP_SEARCH_BAR = (477, 160)
     SHOP_BUY_BUTTON_UL = (949, 677)
     SHOP_BUY_BUTTON_LR = (978, 687)
+    SHOP_ITEM_FIRST_RESULT = (442, 230)
 
     # minimapa
     ALLY_TOP = (1314, 496) 

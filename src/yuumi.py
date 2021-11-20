@@ -12,6 +12,16 @@ from constants.items import *
 # classe que contém as funcionalidades do bot
 class Yuumi:
 
+    to_buy = [
+            Items.GUME_DO_LADRAO_ARCANO,
+            Items.REGENERADOR_DE_PEDRA_LUNAR,
+            Items.PUTRIFICADOR_QUIMTECH,
+            Items.CAJADO_AQUAFLUXO,
+            Items.TURIBULO_ARDENTE,
+            Items.REDENCAO
+        ]
+    bought_items = False
+
     def __init__(self, buddy_coord):
         self.attached = False
         self.buddy_coord = buddy_coord
@@ -21,7 +31,6 @@ class Yuumi:
         self.ally_health = -1
         self.curr_lvl = 0
         self.items = []
-        self.bought_items = False
 
     def __update_my_mana(self):
         black_amount = self.img_p.get_pixels_amount(Coords.YUUMI_MANA_BAR_L_COORD[0], Coords.YUUMI_MANA_BAR_L_COORD[1], Coords.YUUMI_MANA_BAR_R_COORD[0], Coords.YUUMI_MANA_BAR_R_COORD[1], Hashes.EMPTY_PIXEL_BAR, 2)
@@ -98,14 +107,6 @@ class Yuumi:
         return (hash == Hashes.GOLD_BAR_SHOP_AVAILABLE)
 
     def __buy_items(self):
-        to_buy = [
-            Items.GUME_DO_LADRAO_ARCANO,
-            Items.REGENERADOR_DE_PEDRA_LUNAR,
-            Items.PUTRIFICADOR_QUIMTECH,
-            Items.CAJADO_AQUAFLUXO,
-            Items.TURIBULO_ARDENTE,
-            Items.REDENCAO
-        ]
         keyboard.press_in_game('p')
         time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
         try:
@@ -115,11 +116,21 @@ class Yuumi:
         time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
         mouse.left_click()
         time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
-        for item in to_buy:
-            if (self.items.__contains__(item) == False):
+        if (len(self.items) < 6):
+            item = self.to_buy.pop(0)
+            if (item not in self.items):
                 keyboard.type_text(item)
-            break
-
+                time.sleep(Buffers.BUFFER_SHOP_SEARCH)
+                try:
+                    mouse.move_mouse(Coords.SHOP_ITEM_FIRST_RESULT)
+                except:
+                    return
+                time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
+                mouse.left_click()
+                mouse.left_click()
+                time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
+                keyboard.press_in_game('ESC')
+        self.bought_items = True
 
     # função executada para comandar o bot
     def play(self):
@@ -134,7 +145,10 @@ class Yuumi:
         self.__update_ally_health()
         #self.__update_level()
         if (self.__is_in_base()):
-            self.__buy_items()
+            if (self.bought_items == False):
+                self.__buy_items()
+        else:
+            self.bought_items = False
         w_status = -6
         #w_status = self.__current_w_status()
         if (w_status == 1):
