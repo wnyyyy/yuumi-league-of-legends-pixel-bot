@@ -8,6 +8,9 @@ class Coords:
     # loja
     SHOP_FIRST_BUY = (300, 304)
     SHOP_TAB_RECOMENDADOS = (220, 113)
+    SHOP_SEARCH_BAR = (477, 160)
+    SHOP_BUY_BUTTON_UL = (949, 677)
+    SHOP_BUY_BUTTON_LR = (978, 687)
 
     # minimapa
     ALLY_TOP = (1314, 496) 
@@ -28,3 +31,8 @@ class Coords:
     YUUMI_LVL_LR = (529, 882)
     YUUMI_MANA_BAR_R_COORD = (916, 882)
     YUUMI_MANA_BAR_L_COORD = (567, 881)
+    YUUMI_GOLD_BAR_UL = (947, 875)
+    YUUMI_GOLD_BAR_LR = (966, 887)
+
+    # screen
+    SCREEN_CENTER_1600_900 = (800, 450)
