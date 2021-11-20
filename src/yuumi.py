@@ -7,6 +7,7 @@ from helpers.mouse_helper import mouse_helper as mouse
 from constants.buffers import *
 from constants.coordinates import *
 from constants.hashes import *
+from constants.items import *
 
 # classe que contém as funcionalidades do bot
 class Yuumi:
@@ -19,6 +20,7 @@ class Yuumi:
         self.mana = -1
         self.ally_health = -1
         self.curr_lvl = 0
+        self.items = []
 
     def __update_my_mana(self):
         black_amount = self.img_p.get_pixels_amount(Coords.YUUMI_MANA_BAR_L_COORD[0], Coords.YUUMI_MANA_BAR_L_COORD[1], Coords.YUUMI_MANA_BAR_R_COORD[0], Coords.YUUMI_MANA_BAR_R_COORD[1], Hashes.EMPTY_PIXEL_BAR, 2)
@@ -41,13 +43,14 @@ class Yuumi:
         lvl = self.curr_lvl
         try:
             lvl = Hashes.LevelBoxHashDict[hash]
-        finally:
-            if (self.curr_lvl != lvl):
-                priority = "rewq"
-                time.sleep(Buffers.BUFFER_SKILL_LEVELING)
-                for char in priority:
-                    keyboard.pressHoldRelease_ingame('ctrl', char)
-                self.curr_lvl = lvl
+        except:
+             return
+        if (self.curr_lvl != lvl):
+            priority = "rewq"
+            time.sleep(Buffers.BUFFER_SKILL_LEVELING)
+            for char in priority:
+                keyboard.pressHoldRelease_ingame('ctrl', char)
+            self.curr_lvl = lvl
         
 
     def __current_w_status(self):
@@ -86,22 +89,53 @@ class Yuumi:
         if (self.mana > 95) or (self.mana > 40 and self.ally_health < 75) or (self.ally_health < 30):
             keyboard.press_ingame('e')
     
-    def __use_trinket():
+    def __use_trinket(self):
         keyboard.press_ingame('4')
+
+    def __is_in_base(self):
+        hash = self.img_p.get_box_hash(Coords.YUUMI_GOLD_BAR_UL[0],Coords.YUUMI_GOLD_BAR_UL[1], Coords.YUUMI_GOLD_BAR_LR[0], Coords.YUUMI_GOLD_BAR_LR[1])
+        return (hash == Hashes.GOLD_BAR_SHOP_AVAILABLE)
+
+    def __buy_items(self):
+        to_buy = [
+            Items.GUME_DO_LADRAO_ARCANO,
+            Items.REGENERADOR_DE_PEDRA_LUNAR,
+            Items.PUTRIFICADOR_QUIMTECH,
+            Items.CAJADO_AQUAFLUXO,
+            Items.TURIBULO_ARDENTE,
+            Items.REDENCAO
+        ]
+        keyboard.press_ingame('p')
+        time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
+        try:
+            mouse.move_mouse(Coords.SHOP_SEARCH_BAR)
+        except:
+            return
+        time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
+        mouse.left_click()
+        time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
+        for item in to_buy:
+            if (self.items.__contains__(item) == False):
+                keyboard.type_text(item)
+            break
+
 
     # função executada para comandar o bot
     def play(self):
 
         #print("side: " + self.playing_side)
-        # ms = mouse.get_coords()
+        #ms = mouse.get_coords()
         #self.img_p.get_box_hash(ms[0], ms[1], ms[0]+1, ms[1]+1)
-        #self.img_p.get_box_hash(Coords.YUUMI_LVL_UL[0],Coords.YUUMI_LVL_UL[1], Coords.YUUMI_LVL_LR[0], Coords.YUUMI_LVL_LR[1])
+        #hs = self.img_p.get_box_hash(Coords.SHOP_BUY_BUTTON_UL[0],Coords.SHOP_BUY_BUTTON_UL[1], Coords.SHOP_BUY_BUTTON_LR[0], Coords.SHOP_BUY_BUTTON_LR[1])
+        #print(hs)
         #print(self.img_p.get_pixels_amount(ALLY_ADC_HEALTH_L_COORD[0], ALLY_ADC_HEALTH_L_COORD[1], ALLY_ADC_HEALTH_R_COORD[0], ALLY_ADC_HEALTH_R_COORD[1], Hashes.EMPTY_PIXEL_BAR_ALLY, 3))
         self.__update_my_mana()
         self.__update_ally_health()
-        self.__update_level()
-        #w_status = -6
-        w_status = self.__current_w_status()
+        #self.__update_level()
+        if (self.__is_in_base()):
+            self.__buy_items()
+        w_status = -6
+        #w_status = self.__current_w_status()
         if (w_status == 1):
             self.attached = True
         elif (w_status == 2):
