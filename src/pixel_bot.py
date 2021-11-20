@@ -4,7 +4,7 @@ import time
 import psutil
 import keyboard as py_keyboard
 import helpers.util as ut
-from helpers.keyboard.keyboard_helper import keyboard_helper as keyboard
+from helpers.keyboard import keyboard_helper as keyboard
 from yuumi import Yuumi
 from constants.buffers import *
 from constants.coordinates import *
@@ -28,7 +28,7 @@ class PixelBot:
 
     # aperta y para trancar câmera
     def __lock_camera(self):
-        keyboard.p('y')
+        keyboard.press_in_game('y')
 
     def __get_playing_side(self):
         try:
