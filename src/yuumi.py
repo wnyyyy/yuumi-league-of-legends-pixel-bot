@@ -21,6 +21,7 @@ class Yuumi:
         self.ally_health = -1
         self.curr_lvl = 0
         self.items = []
+        self.bought_items = False
 
     def __update_my_mana(self):
         black_amount = self.img_p.get_pixels_amount(Coords.YUUMI_MANA_BAR_L_COORD[0], Coords.YUUMI_MANA_BAR_L_COORD[1], Coords.YUUMI_MANA_BAR_R_COORD[0], Coords.YUUMI_MANA_BAR_R_COORD[1], Hashes.EMPTY_PIXEL_BAR, 2)
@@ -49,7 +50,7 @@ class Yuumi:
             priority = "rewq"
             time.sleep(Buffers.BUFFER_SKILL_LEVELING)
             for char in priority:
-                keyboard.pressHoldRelease_ingame('ctrl', char)
+                keyboard.press_hold_release_in_game('ctrl', char)
             self.curr_lvl = lvl
         
 
@@ -78,7 +79,7 @@ class Yuumi:
         except:
             return
         time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
-        keyboard.press_ingame('w')
+        keyboard.press_in_game('w')
         logging.info('attached to ally {}'.format(self.buddy_coord))
         time.sleep(Buffers.BUFFER_ABILITY_CASTED)
             
@@ -87,10 +88,10 @@ class Yuumi:
     
     def __attempt_healing(self):
         if (self.mana > 95) or (self.mana > 40 and self.ally_health < 75) or (self.ally_health < 30):
-            keyboard.press_ingame('e')
+            keyboard.press_in_game('e')
     
     def __use_trinket(self):
-        keyboard.press_ingame('4')
+        keyboard.press_in_game('4')
 
     def __is_in_base(self):
         hash = self.img_p.get_box_hash(Coords.YUUMI_GOLD_BAR_UL[0],Coords.YUUMI_GOLD_BAR_UL[1], Coords.YUUMI_GOLD_BAR_LR[0], Coords.YUUMI_GOLD_BAR_LR[1])
@@ -105,7 +106,7 @@ class Yuumi:
             Items.TURIBULO_ARDENTE,
             Items.REDENCAO
         ]
-        keyboard.press_ingame('p')
+        keyboard.press_in_game('p')
         time.sleep(Buffers.BUFFER_MOUSE_MOVEMENT)
         try:
             mouse.move_mouse(Coords.SHOP_SEARCH_BAR)
